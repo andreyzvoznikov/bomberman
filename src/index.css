@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 10%;
+    --foreground: 60 10% 95%;
+
+    --card: 220 18% 14%;
+    --card-foreground: 60 10% 95%;
+
+    --popover: 220 18% 14%;
+    --popover-foreground: 60 10% 95%;
+
+    --primary: 45 100% 55%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 160 70% 45%;
+    --secondary-foreground: 220 20% 10%;
+
+    --muted: 220 15% 20%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 350 85% 60%;
+    --accent-foreground: 60 10% 95%;
+
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 60 10% 95%;
+
+    --border: 220 15% 25%;
+    --input: 220 15% 25%;
+    --ring: 45 100% 55%;
+
+    --radius: 0.5rem;
+
+    /* Game-specific tokens */
+    --game-grass: 120 45% 35%;
+    --game-wall: 30 25% 30%;
+    --game-brick: 25 50% 45%;
+    --game-explosion: 35 100% 55%;
+    --game-explosion-glow: 35 100% 65%;
+    --game-player-1: 200 80% 55%;
+    --game-player-2: 350 80% 55%;
+    --game-enemy: 280 70% 50%;
+    --game-powerup: 160 80% 50%;
+
+    /* Neon glow effects */
+    --glow-primary: 0 0 20px hsl(45 100% 55% / 0.5);
+    --glow-explosion: 0 0 40px hsl(35 100% 55% / 0.8);
+    --glow-accent: 0 0 15px hsl(350 85% 60% / 0.5);
+
+    --sidebar-background: 220 18% 12%;
+    --sidebar-foreground: 60 10% 95%;
+    --sidebar-primary: 45 100% 55%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 15% 20%;
+    --sidebar-accent-foreground: 60 10% 95%;
+    --sidebar-border: 220 15% 25%;
+    --sidebar-ring: 45 100% 55%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 60 10% 95%;
+    --card: 220 18% 14%;
+    --card-foreground: 60 10% 95%;
+    --popover: 220 18% 14%;
+    --popover-foreground: 60 10% 95%;
+    --primary: 45 100% 55%;
+    --primary-foreground: 220 20% 10%;
+    --secondary: 160 70% 45%;
+    --secondary-foreground: 220 20% 10%;
+    --muted: 220 15% 20%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 350 85% 60%;
+    --accent-foreground: 60 10% 95%;
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 60 10% 95%;
+    --border: 220 15% 25%;
+    --input: 220 15% 25%;
+    --ring: 45 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-arcade {
+    font-family: 'Press Start 2P', cursive;
+  }
+}
+
+@layer components {
+  .game-title {
+    @apply font-arcade text-primary;
+    text-shadow: var(--glow-primary);
+  }
+
+  .game-button {
+    @apply font-arcade px-6 py-3 bg-primary text-primary-foreground rounded-lg 
+           transition-all duration-200 hover:scale-105 active:scale-95;
+    box-shadow: var(--glow-primary);
+  }
+
+  .game-button:hover {
+    box-shadow: 0 0 30px hsl(45 100% 55% / 0.7);
+  }
+
+  .game-card {
+    @apply bg-card border border-border rounded-xl p-6;
+    box-shadow: 0 4px 20px hsl(220 20% 5% / 0.5);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+
+  .pixel-border {
+    box-shadow: 
+      inset -4px -4px 0px 0px hsl(var(--muted)),
+      inset 4px 4px 0px 0px hsl(var(--foreground) / 0.2);
+  }
+}
+
+@layer utilities {
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-explosion {
+    animation: explosion 0.3s ease-out forwards;
+  }
+
+  .animate-bomb-pulse {
+    animation: bomb-pulse 0.5s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes explosion {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes bomb-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
